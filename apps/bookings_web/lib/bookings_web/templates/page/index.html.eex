@@ -1,0 +1,7 @@
+<section class="row">
+  <%= for booking <- @bookings do %>
+    <li>
+      <strong><%= booking.person %></strong>: <%= booking.place %> (<%= booking.from %> to <%= booking.to %>) 
+    </li>
+  <% end %>
+</section>
