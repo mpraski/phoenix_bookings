@@ -3,7 +3,7 @@ defmodule Bookings.Booking do
   import Ecto.Changeset
   import Bookings.Helpers
 
-  @default_duration 7
+  @duration 7
 
   # Schema definition
   schema "bookings" do
@@ -15,22 +15,19 @@ defmodule Bookings.Booking do
     timestamps()
   end
 
-  # Set dynamic default values
-  schema_presets(
-    from: Date.utc_today(),
-    to: Date.utc_today() |> Date.add(@default_duration)
-  )
+  # Macro defining common model functions, dynamic default values (presets) 
+  # and changeset function
+  schema_api do
+    preset(:from, Date.utc_today())
+    preset(:to, Date.utc_today() |> Date.add(@duration))
 
-  # Implement common Ecto methods 
-  schema_api()
-
-  # Define changeset validation
-  schema_changeset [:place, :person, :from, :to] do
-    validate_required([:place, :person, :from, :to])
-    |> validate_length(:place, min: 5, max: 200)
-    |> validate_format(:person, ~r/((\w)( \w)*)/)
-    |> validate_change(:from, &validate_from/2)
-    |> validate_duration
+    changeset [:place, :person, :from, :to] do
+      validate_required([:place, :person, :from, :to])
+      validate_length(:place, min: 5, max: 200)
+      validate_format(:person, ~r/((\w)( \w)*)/)
+      validate_change(:from, &validate_from/2)
+      validate_duration
+    end
   end
 
   # Private API
