@@ -1,0 +1,20 @@
+<section class="row">
+  <strong>Person</strong>: <%= @booking.person %>
+</section>
+<section class="row">
+  <strong>Place</strong>: <%= @booking.place %>
+</section>
+<section class="row">
+  <strong>From</strong>: <%= @booking.from %>
+</section>
+<section class="row">
+  <strong>To</strong>: <%= @booking.to %>
+</section>
+
+<section class="row">
+  <div>
+    <%= button("Edit", to: Routes.booking_path(@conn, :edit, @booking.id), method: "get") %>
+    <%= button("Delete", to: Routes.booking_path(@conn, :delete, @booking.id), method: "delete") %>
+    <%= button("Back to list", to: Routes.booking_path(@conn, :index), method: "get") %>
+  </div>
+</section>

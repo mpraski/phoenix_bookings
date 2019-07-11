@@ -1,0 +1,30 @@
+<%= form_for @booking, @action, fn f -> %>
+
+  <%= if @booking.action do %>
+    <div class="alert alert-danger">
+      There were errors in your submission.
+      Please correct them.
+    </div>
+  <% end %>
+
+  <%= label f, :place %>
+  <%= text_input f, :place %>
+  <%= error_tag f, :place %>
+
+  <%= label f, :person %>
+  <%= text_input f, :person %>
+  <%= error_tag f, :person %>
+
+  <%= label f, :from, "Book from" %>
+  <%= date_select f, :from %>
+  <%= error_tag f, :from %>
+
+  <%= label f, :to, "Book till" %>
+  <%= date_select f, :to %>
+  <%= error_tag f, :to %>
+
+  <div>
+    <%= submit "Submit" %>
+    <%= button("Back to list", to: Routes.booking_path(@conn, :index), method: "get") %>
+  </div>
+<% end %>

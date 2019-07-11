@@ -1,0 +1,3 @@
+<h1>Edit <%= @booking.data.place %></h1>
+
+<%= render("form.html", conn: @conn, booking: @booking, action: Routes.booking_path(@conn, :update, @booking.data)) %>

@@ -16,7 +16,7 @@ defmodule BookingsWeb.Router do
   scope "/", BookingsWeb do
     pipe_through :browser
 
-    get "/", PageController, :index
+    resources "/", BookingController
   end
 
   # Other scopes may use custom stacks.

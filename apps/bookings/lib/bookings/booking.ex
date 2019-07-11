@@ -3,6 +3,8 @@ defmodule Bookings.Booking do
   import Ecto.Changeset
   import Bookings.Helpers
 
+  @default_duration 7
+
   # Schema definition
   schema "bookings" do
     field(:place, :string)
@@ -13,11 +15,17 @@ defmodule Bookings.Booking do
     timestamps()
   end
 
-  # Implement common Ecto methods 
-  model_api()
+  # Set dynamic default values
+  schema_presets(
+    from: Date.utc_today(),
+    to: Date.utc_today() |> Date.add(@default_duration)
+  )
 
-  # Private API
-  model_changeset [:place, :person, :from, :to] do
+  # Implement common Ecto methods 
+  schema_api()
+
+  # Define changeset validation
+  schema_changeset [:place, :person, :from, :to] do
     validate_required([:place, :person, :from, :to])
     |> validate_length(:place, min: 5, max: 200)
     |> validate_format(:person, ~r/((\w)( \w)*)/)
@@ -25,6 +33,7 @@ defmodule Bookings.Booking do
     |> validate_duration
   end
 
+  # Private API
   defp validate_from(:from, from) do
     case Date.compare(from, Date.utc_today()) do
       :lt -> [from: "Cannot be in the past"]

@@ -5,4 +5,5 @@
                         'Elixir.Bookings.Booking','Elixir.Bookings.Helpers',
                         'Elixir.Bookings.Repo']},
               {registered,[]},
-              {vsn,"0.1.0"}]}.
+              {vsn,"0.1.0"},
+              {mod,{'Elixir.Bookings.Application',[]}}]}.

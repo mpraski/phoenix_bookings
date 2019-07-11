@@ -1,0 +1,13 @@
+<section class="row">
+  <%= button("New booking", to: Routes.booking_path(@conn, :new), method: "get") %>
+</section>
+
+<section class="row">
+  <ul>
+    <%= for booking <- @bookings do %>
+      <li>
+        <strong><%= link(booking.person, to: Routes.booking_path(@conn, :show, booking)) %></strong>: <%= booking.place %> (<%= booking.from %> to <%= booking.to %>) 
+      </li>
+    <% end %>
+  </ul>
+</section>
