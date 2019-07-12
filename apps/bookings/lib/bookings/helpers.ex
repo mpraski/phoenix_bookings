@@ -27,28 +27,8 @@ defmodule Bookings.Helpers do
 
   defp build_pipeline_([], acc), do: acc
 
-  defmacro schema_api(module \\ __CALLER__.module, repo \\ quote(do: Bookings.Repo), do: expr) do
-    {_, _, stmts} = expr
-    presets = build_presets(stmts)
-    changeset = stmts |> Enum.find(fn {k, _, _} -> k == :changeset end)
-
-    {_, _,
-     [
-       fields,
-       [do: {:__block__, _, pipeline_expr}]
-     ]} = changeset
-
-    pipeline = build_pipeline(pipeline_expr)
-
+  defmacro schema_api_(module, repo, fields, pipeline) do
     quote do
-      defp create do
-        %unquote(module){}
-        |> struct(
-          unquote(presets)
-          |> Enum.map(fn {k, v} -> {k, v.()} end)
-        )
-      end
-
       defp changeset(%unquote(module){} = var!(model), var!(attrs) \\ %{}) do
         var!(model)
         |> cast(var!(attrs), unquote(fields))
@@ -82,6 +62,62 @@ defmodule Bookings.Helpers do
       def one(attrs \\ []), do: unquote(repo).one(unquote(module), attrs)
 
       def get(id), do: unquote(repo).get(unquote(module), id)
+    end
+  end
+
+  defmacro schema_api(module \\ __CALLER__.module, repo \\ quote(do: Bookings.Repo), expr)
+
+  defmacro schema_api(module, repo,
+             do:
+               {:changeset, _,
+                [
+                  fields,
+                  [do: {_, _, pipeline_expr}]
+                ]}
+           ) do
+    pipeline = build_pipeline(pipeline_expr)
+
+    quote do
+      defp create do
+        %unquote(module){}
+      end
+
+      schema_api_(
+        unquote(module),
+        unquote(repo),
+        unquote(fields),
+        unquote(pipeline)
+      )
+    end
+  end
+
+  defmacro schema_api(module, repo, do: {_, _, stmts}) do
+    presets = build_presets(stmts)
+    changeset = stmts |> Enum.find(fn {k, _, _} -> k == :changeset end)
+
+    {_, _,
+     [
+       fields,
+       [do: {_, _, pipeline_expr}]
+     ]} = changeset
+
+    pipeline = build_pipeline(pipeline_expr)
+
+    quote do
+      defp create do
+        %unquote(module){}
+        |> struct(
+          unquote(presets)
+          |> Enum.map(fn {k, v} -> {k, v.()} end)
+        )
+      end
+
+      schema_api_(
+        unquote(module),
+        unquote(repo),
+        unquote(fields),
+        unquote(pipeline)
+      )
     end
   end
 end

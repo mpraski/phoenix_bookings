@@ -1,9 +1,11 @@
 {application,bookings,
-             [{applications,[kernel,stdlib,elixir,logger,postgrex,ecto_sql]},
+             [{applications,[kernel,stdlib,elixir,logger,pbkdf2_elixir,
+                             postgrex,ecto_sql]},
               {description,"bookings"},
               {modules,['Elixir.Bookings','Elixir.Bookings.Application',
                         'Elixir.Bookings.Booking','Elixir.Bookings.Helpers',
-                        'Elixir.Bookings.Repo']},
+                        'Elixir.Bookings.Password','Elixir.Bookings.Repo',
+                        'Elixir.Bookings.User']},
               {registered,[]},
               {vsn,"0.1.0"},
               {mod,{'Elixir.Bookings.Application',[]}}]}.
