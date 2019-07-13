@@ -1,0 +1,13 @@
+<section class="row">
+  <%= button("New place", to: Routes.place_path(@conn, :new), method: :get) %>
+</section>
+
+<section class="row">
+  <ul>
+    <%= for place <- @places do %>
+      <li>
+        <strong><%= link(place.name, to: Routes.place_path(@conn, :show, place)) %></strong>: <%= address(place) %>
+      </li>
+    <% end %>
+  </ul>
+</section>

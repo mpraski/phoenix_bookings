@@ -1,4 +1,4 @@
-defmodule Bookings.Helpers do
+defmodule Bookings.Schema do
   defp build_presets(exprs, acc \\ [])
 
   defp build_presets([{:preset, _, [field, arg]} | rest], acc) do
@@ -121,11 +121,16 @@ defmodule Bookings.Helpers do
     end
   end
 
-  defmacro schema_preload(assoc, repo \\ quote(do: Bookings.Repo)) do
-    quote do 
+  defmacro schema_preload(assoc, module \\ __CALLER__.module, repo \\ quote(do: Bookings.Repo))
+           when is_atom(assoc) do
+    quote do
       def unquote(:"get_with_#{assoc}")(id) do
-        id
-        |> get()
+        unquote(repo).get(unquote(module), id)
+        |> unquote(repo).preload(unquote(assoc))
+      end
+
+      def unquote(:"all_with_#{assoc}")() do
+        unquote(repo).all(unquote(module))
         |> unquote(repo).preload(unquote(assoc))
       end
     end

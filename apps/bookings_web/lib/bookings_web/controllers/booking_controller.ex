@@ -3,12 +3,12 @@ defmodule BookingsWeb.BookingController do
   alias Bookings.Booking
 
   def index(conn, _params) do
-    bookings = Booking.all()
+    bookings = Booking.all_with_place()
     render(conn, "index.html", bookings: bookings)
   end
 
   def show(conn, %{"id" => id}) do
-    booking = Booking.get(id)
+    booking = Booking.get_with_place(id)
     render(conn, "show.html", booking: booking)
   end
 
@@ -40,7 +40,7 @@ defmodule BookingsWeb.BookingController do
 
   def delete(conn, %{"id" => id}) do
     case Booking.delete(id) do
-      {:ok, booking} -> redirect(conn, to: Routes.booking_path(conn, :index))
+      {:ok, _booking} -> redirect(conn, to: Routes.booking_path(conn, :index))
       {:error, changeset} -> redirect(conn, to: Routes.booking_path(conn, :show, changeset.data))
     end
   end

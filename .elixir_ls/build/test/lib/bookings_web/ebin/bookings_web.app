@@ -13,6 +13,8 @@
                         'Elixir.BookingsWeb.ErrorView',
                         'Elixir.BookingsWeb.Gettext',
                         'Elixir.BookingsWeb.LayoutView',
+                        'Elixir.BookingsWeb.PlaceController',
+                        'Elixir.BookingsWeb.PlaceView',
                         'Elixir.BookingsWeb.Plugs.Authenticator',
                         'Elixir.BookingsWeb.Router',
                         'Elixir.BookingsWeb.Router.Helpers',

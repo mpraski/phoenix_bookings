@@ -1,7 +1,7 @@
 defmodule Bookings.User do
   use Ecto.Schema
   import Ecto.Changeset
-  import Bookings.Helpers
+  import Bookings.Schema
   require Bookings.Password
 
   alias __MODULE__
@@ -38,7 +38,7 @@ defmodule Bookings.User do
   end
 
   defp hash_password(%Ecto.Changeset{changes: %{password: password}} = changeset) do
-    changeset |> put_change(:password_hashed, Bookings.Password.hash(password))
+    changeset |> put_change(:password_hashed, Password.hash(password))
   end
 
   defp hash_password(changeset), do: changeset

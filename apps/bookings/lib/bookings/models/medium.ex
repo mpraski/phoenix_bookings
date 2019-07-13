@@ -1,7 +1,7 @@
 defmodule Bookings.Medium do
   use Ecto.Schema
   import Ecto.Changeset
-  import Bookings.Helpers
+  import Bookings.Schema
   require UUID
 
   @media_path "/media"
@@ -15,10 +15,11 @@ defmodule Bookings.Medium do
   end
 
   schema_api do
-    changeset [:name, :file, :type] do
-      validate_required([:name, :file, :type])
+    changeset [:name, :file, :type, :place_id] do
+      validate_required([:name, :file, :type, :place_id])
       validate_length(:name, min: 5)
       unique_constraint(:name)
+      assoc_constraint(:place)
       validate_file()
     end
   end

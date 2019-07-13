@@ -1,0 +1,26 @@
+<section class="row">
+  <strong>Name</strong>: <%= @place.name %>
+</section>
+<section class="row">
+  <strong>Address</strong>: <%= address(@place) %>
+</section>
+<section class="row">
+  <strong>Latitude</strong>: <%= @place.latitude %>
+</section>
+<section class="row">
+  <strong>Longitude</strong>: <%= @place.longitude %>
+</section>
+<section class="row">
+  <strong>Description</strong>: 
+  <textarea>
+    <%= @place.description %>
+  </textarea>
+</section>
+
+<section class="row">
+  <div>
+    <%= button("Edit", to: Routes.place_path(@conn, :edit, @place.id), method: :get) %>
+    <%= button("Delete", to: Routes.place_path(@conn, :delete, @place.id), method: :delete) %>
+    <%= button("Back to list", to: Routes.place_path(@conn, :index), method: :get) %>
+  </div>
+</section>

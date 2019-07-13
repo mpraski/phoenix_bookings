@@ -1,0 +1,42 @@
+<%= form_for @place, @action, fn f -> %>
+
+  <%= if @place.action do %>
+    <div class="alert alert-danger">
+      There were errors in your submission.
+      Please correct them.
+    </div>
+  <% end %>
+
+  <%= label f, :name %>
+  <%= text_input f, :name %>
+  <%= error_tag f, :name %>
+
+  <%= label f, :latitude %>
+  <%= text_input f, :latitude %>
+  <%= error_tag f, :latitude %>
+
+  <%= label f, :longitude %>
+  <%= text_input f, :longitude %>
+  <%= error_tag f, :longitude %>
+
+  <%= label f, :address_one, "Address, line 1" %>
+  <%= text_input f, :address_one %>
+  <%= error_tag f, :address_one %>
+
+  <%= label f, :address_two, "Address, line 2" %>
+  <%= text_input f, :address_two %>
+  <%= error_tag f, :address_two %>
+
+  <%= label f, :address_three, "Address, line 3" %>
+  <%= text_input f, :address_three %>
+  <%= error_tag f, :address_three %>
+
+  <%= label f, :description %>
+  <%= textarea f, :description %>
+  <%= error_tag f, :description %>
+
+  <div>
+    <%= submit "Submit" %>
+    <%= button("Back to list", to: Routes.place_path(@conn, :index), method: :get) %>
+  </div>
+<% end %>

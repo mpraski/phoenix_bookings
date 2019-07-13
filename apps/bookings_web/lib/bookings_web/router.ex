@@ -23,6 +23,7 @@ defmodule BookingsWeb.Router do
 
     resources "/", BookingController
     resources "/users", UserController
+    resources "/places", PlaceController
   end
 
   # Other scopes may use custom stacks.

@@ -1,11 +1,9 @@
 defmodule Bookings.Booking do
   use Ecto.Schema
   import Ecto.Changeset
-  import Bookings.Helpers
+  import Bookings.Schema
 
   @duration 7
-
-  alias Bookings.Repo
 
   # Schema definition
   schema "bookings" do
@@ -32,10 +30,9 @@ defmodule Bookings.Booking do
       assoc_constraint(:place)
     end
   end
-  
+
   schema_preload :place
 
-  # Private API
   defp validate_from(:from, from) do
     case Date.compare(from, Date.utc_today()) do
       :lt -> [from: "Cannot be in the past"]

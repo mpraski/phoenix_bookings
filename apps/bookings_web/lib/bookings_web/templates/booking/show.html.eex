@@ -2,7 +2,7 @@
   <strong>Person</strong>: <%= @booking.person %>
 </section>
 <section class="row">
-  <strong>Place</strong>: <%= @booking.place %>
+  <strong>Place</strong>: <%= @booking.place.name %>
 </section>
 <section class="row">
   <strong>From</strong>: <%= @booking.from %>

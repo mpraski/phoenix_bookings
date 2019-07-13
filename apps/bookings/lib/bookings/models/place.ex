@@ -1,7 +1,7 @@
 defmodule Bookings.Place do
   use Ecto.Schema
   import Ecto.Changeset
-  import Bookings.Helpers
+  import Bookings.Schema
 
   schema "places" do
     field(:name, :string)
@@ -13,7 +13,7 @@ defmodule Bookings.Place do
     field(:details, :string)
 
     has_many(:media, Bookings.Medium)
-    has_many(:places, Bookings.Place)
+    has_many(:bookings, Bookings.Booking)
 
     timestamps()
   end
@@ -27,5 +27,5 @@ defmodule Bookings.Place do
   end
 
   schema_preload :media
-  schema_preload :places
+  schema_preload :bookings
 end

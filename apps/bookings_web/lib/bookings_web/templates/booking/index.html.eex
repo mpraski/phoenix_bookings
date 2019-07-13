@@ -6,7 +6,7 @@
   <ul>
     <%= for booking <- @bookings do %>
       <li>
-        <strong><%= link(booking.person, to: Routes.booking_path(@conn, :show, booking)) %></strong>: <%= booking.place %> (<%= booking.from %> to <%= booking.to %>) 
+        <strong><%= link(booking.person, to: Routes.booking_path(@conn, :show, booking)) %></strong>: <%= booking.place.name %> (<%= booking.from %> to <%= booking.to %>) 
       </li>
     <% end %>
   </ul>
