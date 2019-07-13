@@ -120,4 +120,14 @@ defmodule Bookings.Helpers do
       )
     end
   end
+
+  defmacro schema_preload(assoc, repo \\ quote(do: Bookings.Repo)) do
+    quote do 
+      def unquote(:"get_with_#{assoc}")(id) do
+        id
+        |> get()
+        |> unquote(repo).preload(unquote(assoc))
+      end
+    end
+  end
 end

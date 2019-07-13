@@ -5,12 +5,15 @@ defmodule Bookings.Booking do
 
   @duration 7
 
+  alias Bookings.Repo
+
   # Schema definition
   schema "bookings" do
-    field(:place, :string)
     field(:person, :string)
     field(:from, :date)
     field(:to, :date)
+
+    belongs_to(:place, Bookings.Place)
 
     timestamps()
   end
@@ -21,14 +24,16 @@ defmodule Bookings.Booking do
     preset(:from, Date.utc_today())
     preset(:to, Date.utc_today() |> Date.add(@duration))
 
-    changeset [:place, :person, :from, :to] do
-      validate_required([:place, :person, :from, :to])
-      validate_length(:place, min: 5, max: 200)
+    changeset [:person, :from, :to, :place_id] do
+      validate_required([:person, :from, :to, :place_id])
       validate_format(:person, ~r/((\w)( \w)*)/)
       validate_change(:from, &validate_from/2)
       validate_duration
+      assoc_constraint(:place)
     end
   end
+  
+  schema_preload :place
 
   # Private API
   defp validate_from(:from, from) do

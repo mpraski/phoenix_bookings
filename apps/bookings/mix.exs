@@ -31,7 +31,9 @@ defmodule Bookings.MixProject do
       # {:sibling_app_in_umbrella, in_umbrella: true}
       {:ecto_sql, "~> 3.0"},
       {:postgrex, ">= 0.0.0"},
-      {:pbkdf2_elixir, "~> 0.12"}
+      {:pbkdf2_elixir, "~> 0.12"},
+      {:ecto_enum, "~> 1.3"},
+      {:elixir_uuid, "~> 1.2"}
     ]
   end
 end
