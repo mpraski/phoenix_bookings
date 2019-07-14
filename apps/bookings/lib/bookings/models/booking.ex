@@ -28,6 +28,7 @@ defmodule Bookings.Booking do
       validate_change(:from, &validate_from/2)
       validate_duration
       assoc_constraint(:place)
+      foreign_key_constraint(:place_id)
     end
   end
 

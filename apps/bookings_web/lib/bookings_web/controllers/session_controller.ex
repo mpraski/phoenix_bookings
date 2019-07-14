@@ -1,5 +1,6 @@
 defmodule BookingsWeb.SessionController do
   use BookingsWeb, :controller
+  
   alias Bookings.User
 
   def new(conn, _params) do
@@ -25,6 +26,6 @@ defmodule BookingsWeb.SessionController do
     conn
     |> clear_session()
     |> configure_session(drop: true)
-    |> redirect(to: Routes.booking_path(conn, :index))
+    |> redirect(to: Routes.session_path(conn, :new))
   end
 end

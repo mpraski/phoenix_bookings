@@ -1,4 +1,4 @@
-defmodule BookingsWeb.Plugs.Authenticator do
+defmodule BookingsWeb.Authenticator do
   import Plug.Conn
 
   alias Bookings.User

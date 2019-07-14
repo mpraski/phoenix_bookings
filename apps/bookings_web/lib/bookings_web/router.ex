@@ -7,7 +7,7 @@ defmodule BookingsWeb.Router do
     plug :fetch_flash
     plug :protect_from_forgery
     plug :put_secure_browser_headers
-    plug BookingsWeb.Plugs.Authenticator
+    plug BookingsWeb.Authenticator
   end
 
   pipeline :api do
@@ -21,9 +21,9 @@ defmodule BookingsWeb.Router do
     post "/login", SessionController, :create
     delete "/logout", SessionController, :delete
 
-    resources "/", BookingController
     resources "/users", UserController
     resources "/places", PlaceController
+    resources "/", BookingController
   end
 
   # Other scopes may use custom stacks.

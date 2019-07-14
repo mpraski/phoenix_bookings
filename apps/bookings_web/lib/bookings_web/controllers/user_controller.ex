@@ -1,5 +1,7 @@
 defmodule BookingsWeb.UserController do
   use BookingsWeb, :controller
+  use BookingsWeb.Authorizer, [:show]
+
   alias Bookings.User
 
   plug :authenticate when action in [:show]
@@ -31,7 +33,7 @@ defmodule BookingsWeb.UserController do
 
     if current_user == nil || current_user.id != requested_user_id do
       conn
-      |> put_flash(:error, "Unauthorized access")
+      |> put_flash(:error, "Can't see this user")
       |> redirect(to: Routes.booking_path(conn, :index))
       |> halt()
     else

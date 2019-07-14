@@ -1,6 +1,9 @@
 defmodule BookingsWeb.BookingController do
   use BookingsWeb, :controller
+  use BookingsWeb.Authorizer
+  
   alias Bookings.Booking
+  alias Bookings.Place
 
   def index(conn, _params) do
     bookings = Booking.all_with_place()
@@ -14,7 +17,8 @@ defmodule BookingsWeb.BookingController do
 
   def new(conn, _params) do
     booking = Booking.new()
-    render(conn, "new.html", booking: booking)
+    places = Place.all()
+    render(conn, "new.html", booking: booking, places: places)
   end
 
   def create(conn, %{"booking" => booking_params}) do
@@ -26,7 +30,8 @@ defmodule BookingsWeb.BookingController do
 
   def edit(conn, %{"id" => id}) do
     booking = Booking.edit(id)
-    render(conn, "edit.html", booking: booking)
+    places = Place.all()
+    render(conn, "edit.html", booking: booking, places: places)
   end
 
   def update(conn, %{"id" => id, "booking" => booking_params}) do

@@ -7,9 +7,9 @@
     </div>
   <% end %>
 
-  <%= label f, :place %>
-  <%= text_input f, :place %>
-  <%= error_tag f, :place %>
+  <%= label f, :place_id %>
+  <%= select f, :place_id, places_select(@places) %>
+  <%= error_tag f, :place_id %>
 
   <%= label f, :person %>
   <%= text_input f, :person %>

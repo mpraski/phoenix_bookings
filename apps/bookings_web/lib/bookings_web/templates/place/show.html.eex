@@ -11,9 +11,9 @@
   <strong>Longitude</strong>: <%= @place.longitude %>
 </section>
 <section class="row">
-  <strong>Description</strong>: 
+  <strong>Details</strong>: 
   <textarea>
-    <%= @place.description %>
+    <%= @place.details %>
   </textarea>
 </section>
 

@@ -1,7 +1,8 @@
 defmodule BookingsWeb.PlaceController do
   use BookingsWeb, :controller
-  alias Bookings.Place
+  use BookingsWeb.Authorizer
   
+  alias Bookings.Place
 
   def index(conn, _params) do
     places = Place.all()

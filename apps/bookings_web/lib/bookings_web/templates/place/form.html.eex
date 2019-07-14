@@ -31,9 +31,9 @@
   <%= text_input f, :address_three %>
   <%= error_tag f, :address_three %>
 
-  <%= label f, :description %>
-  <%= textarea f, :description %>
-  <%= error_tag f, :description %>
+  <%= label f, :details %>
+  <%= textarea f, :details %>
+  <%= error_tag f, :details %>
 
   <div>
     <%= submit "Submit" %>
